@@ -74,14 +74,14 @@ export const SignupCard = ({
             type="password"
             disabled={false} 
             />
-             {/* <Input  
+              <Input  
             placeholder="Confirm Password"
             required
             onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value })}
             value={signupForm.confirmPassword}
             type="Password"
             disabled={false} 
-            /> */}
+            /> 
             <Input  
             placeholder="Your username"
             required

@@ -1,4 +1,4 @@
-import { useSignup } from '@/hooks/api/useSignup';
+import { useSignup } from '@/hooks/api/auth/useSignup';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignupCard } from './SignupCard';
@@ -11,7 +11,7 @@ export const SignupContainer = () => {
     const [signupForm, setSignupForm] = useState({
         email: '',
         password: '',
-       
+        confirmPassword: '',
         username: ''
     });
 
@@ -29,11 +29,11 @@ export const SignupContainer = () => {
             return;
         }
      
-    //     if (signupForm.password !== signupForm.confirmPassword) {
-    //    setValidationError({ message: 'Passwords do not match' });
-    //         return;
-    //     }
-         
+        if (signupForm.password !== signupForm.confirmPassword) {
+        setValidationError({ message: 'Passwords do not match' });
+           return;
+        }
+        
        
 
         setValidationError(null);
