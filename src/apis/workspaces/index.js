@@ -1,4 +1,5 @@
 import axios from '@/config/axiosConfig';
+import { worker } from 'globals';
 
 
 export const createWorkspaceRequest = async ({ name, description, token}) => {
@@ -33,5 +34,23 @@ export const fetchWorkspacesRequest = async ({ token }) => {
       throw error.response.data;
         
     }
+};
+
+
+
+export const fetchWorkspaceDetailsRequest = async ({ workspaceId, token }) => {
+   try {
+    const response = await axios.get(`/workspaces/${workspaceId}`, {
+      headers: {
+        'x-access-token': token
+        
+      }
+    });
+   } catch (error) {
+    console.log('Error in fetching workspace details error', error);
+    throw error.response.data;
+    
+   }
+
 }
 
