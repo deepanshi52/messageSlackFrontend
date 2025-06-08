@@ -6,13 +6,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/context/useAuth";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { LogOutIcon, PencilIcon, SettingsIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-hot-toast';
+import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
 
 export const UserButton = () => {
   const navigate = useNavigate();
   const { auth, logout } = useAuth();
+  const { setOpenCreateWorkspaceModal } = useCreateWorkspaceModal();
+
+  function handleFunction() {
+    setOpenCreateWorkspaceModal(true);
+  }
 
   async function handleLogout() {
     try {
@@ -27,21 +33,30 @@ export const UserButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarImage src={auth?.user?.avatar} />
-          <AvatarFallback>
-            {auth?.user?.username ? auth.user.username[0].toUpperCase() : 'U'}
-          </AvatarFallback>
-        </Avatar>
+      <DropdownMenuTrigger asChild>
+        <button type="button" className="outline-none relative">
+          <Avatar className="size-10 hover:opacity-65 transition">
+            <AvatarImage src={auth?.user?.avatar} />
+            <AvatarFallback>
+              {auth?.user?.username?.[0]?.toUpperCase() ?? "U"}
+            </AvatarFallback>
+          </Avatar>
+        </button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent>
+        <DropdownMenuItem onClick={handleFunction}>
+          <PencilIcon className="mr-2 h-4 w-4" />
+          Create Workspace
+        </DropdownMenuItem>
+
         <DropdownMenuItem>
-          <SettingsIcon className="size-4 mr-2 h-10" />
+          <SettingsIcon className="mr-2 h-4 w-4" />
           Settings
         </DropdownMenuItem>
+
         <DropdownMenuItem onClick={handleLogout}>
-          <LogOutIcon className="size-4 mr-2 h-10" />
+          <LogOutIcon className="mr-2 h-4 w-4" />
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>
